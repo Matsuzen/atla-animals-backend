@@ -13,7 +13,7 @@ async function registerVote(req, res) {
     err: true
   }
 
-  if(!answer || typeof(answer) != "number" || answer < 0 || answer > 4) {
+  if(answer == undefined || typeof(answer) != "number" || answer < 0 || answer > 4) {
     error.message = "Given answer is invalid";
     return res.send(error);
   }
