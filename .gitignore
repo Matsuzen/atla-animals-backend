@@ -2,4 +2,3 @@ node_modules
 .env
 .rest
 sqlite3.exe
-db.sqlite
