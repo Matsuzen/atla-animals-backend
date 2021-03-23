@@ -5,10 +5,10 @@ async function checkVoter(req) {
   const voterIp = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
 
   //Check if voter already has voted
-  const voterQuery = `SELECT dr.*, ua.id AS uAId FROM dailyRatings AS dr, usedAnimals AS ua
-    WHERE dr.usedAnimalId = ua.id
-    AND dr.voterIp = ?
-    ORDER BY ua.createdAt DESC
+  const voterQuery = `SELECT dr.*, ua.id AS ua_id FROM daily_ratings AS dr, used_animals AS ua
+    WHERE dr.used_animal_id = ua.id
+    AND dr.voter_ip = ?
+    ORDER BY ua.created_at DESC
     LIMIT 1`;
   
   const hasVoted = await db.query(voterQuery, {
@@ -16,6 +16,8 @@ async function checkVoter(req) {
     type: QueryTypes.SELECT
   })
   .catch(e => console.log(e));
+
+  console.log(hasVoted);
 
   if(!hasVoted[0]) return false;
 

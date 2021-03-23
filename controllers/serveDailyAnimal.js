@@ -9,9 +9,9 @@ const doRating = require("../funcs/doRating");
 
 async function serveDailyAnimal(req, res) {
   
-  const dailyQuery = `SELECT animals.name, animals.desc, usedAnimals.id AS uAId, usedAnimals.createdAt FROM animals, usedAnimals
-    WHERE animals.id = usedAnimals.animalId
-    ORDER BY usedAnimals.createdAt DESC
+  const dailyQuery = `SELECT animals.name, animals.desc, used_animals.id AS ua_id, used_animals.created_at FROM animals, used_animals
+    WHERE animals.id = used_animals.animal_id
+    ORDER BY used_animals.created_at DESC
     LIMIT 1`;
 
   let dailyAnimal = await db.query(dailyQuery, {
@@ -26,7 +26,7 @@ async function serveDailyAnimal(req, res) {
   }
 
   //Compare the daily animal's date with the current date
-  const animalDate = new Date(dailyAnimal.createdAt);
+  const animalDate = new Date(dailyAnimal.created_at);
   const animalYear = animalDate.getFullYear();
   const animalMonth = animalDate.getMonth();
   const animalDateDay = animalDate.getDate();
@@ -44,7 +44,7 @@ async function serveDailyAnimal(req, res) {
   } 
   //Get daily rating for the daily animal
   else {
-    dailyAnimal.tier = await doRating(dailyAnimal.uAId);
+    dailyAnimal.tier = await doRating(dailyAnimal.ua_id);
   }
 
   const hasVoted = await checkVoter(req);

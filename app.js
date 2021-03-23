@@ -8,11 +8,12 @@ const path = require("path");
 const PORT = process.env.PORT || 3000;
 
 const db = require("./models/db");
+require("./funcs/syncModels")();
 
 const animalRoutes = require("./routes/animal");
 
-/* const syncAnimals = require("./funcs/syncAnimals");
-syncAnimals("./assets/animals"); */
+const syncAnimals = require("./funcs/syncAnimals");
+syncAnimals("./assets/animals");
 
 /* const updateDailyAnimal = require("./funcs/updateDailyAnimal");
 updateDailyAnimal(); */

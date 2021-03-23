@@ -28,7 +28,7 @@ async function registerVote(req, res) {
   //Get the id of today's used animal
   const usedAnimal = await UsedAnimal.findOne({
     order: [
-      ["createdAt", "DESC"]
+      ["created_at", "DESC"]
     ],
     raw: true
   });
@@ -37,10 +37,10 @@ async function registerVote(req, res) {
 
   const voterIp = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
 
-  await DailyRating.create({
+  const ratingRes = await DailyRating.create({
     rating: answer,
-    usedAnimalId: uAId,
-    voterIp
+    used_animal_id: uAId,
+    voter_ip: voterIp
   })
   .catch(e => console.log(e));
 

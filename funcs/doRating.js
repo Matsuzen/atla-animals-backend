@@ -11,7 +11,7 @@ async function doRating(usedAnimalId) {
       [db.fn('count', db.col("id")), "count"]
     ],
     where: {
-      usedAnimalId
+      used_animal_id: usedAnimalId
     },
     raw: true
   })
