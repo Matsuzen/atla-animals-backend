@@ -15,8 +15,8 @@ const animalRoutes = require("./routes/animal");
 const syncAnimals = require("./funcs/syncAnimals");
 syncAnimals("./assets/animals");
 
-const updateDailyAnimal = require("./funcs/updateDailyAnimal");
-updateDailyAnimal(true);
+/* const updateDailyAnimal = require("./funcs/updateDailyAnimal");
+updateDailyAnimal(true); */
 
 app.use(express.static(path.join(__dirname, "assets")));
 app.use(express.json());
