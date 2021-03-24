@@ -11,16 +11,18 @@ function syncAnimals(dir) {
   fs.readdirSync(dir).forEach(async fileName => {
     if(loopedAnimals[fileName]) return; 
 
+    loopedAnimals[fileName] = true;
+
     const animalName = fileName.replace(/.png/g, "");
 
     await Animal.create({
       name: animalName
     })
-    .catch(e => console.log(e));
+    .catch(e => {});
 
-    loopedAnimals[fileName] = true;
     console.log(`Created animal: ${animalName}`)
   })
+  
 }
 
 module.exports = syncAnimals;

@@ -22,7 +22,7 @@ async function serveDailyAnimal(req, res) {
   dailyAnimal = dailyAnimal[0];
 
   if(!dailyAnimal) {
-    dailyAnimal = await updateDailyAnimal();
+    dailyAnimal = await updateDailyAnimal(true);
   }
 
   //Compare the daily animal's date with the current date
@@ -39,6 +39,7 @@ async function serveDailyAnimal(req, res) {
   //Update animal when dates don't match
   //Change this to cronjob later
   if(animalDateDay != currentDate || animalMonth != currentMonth || animalYear != currentYear) {
+    console.log("DATE CHANGE!!!!!!!!!!!")
     dailyAnimal = await updateDailyAnimal()
     .catch(e => res.send(e));
   } 

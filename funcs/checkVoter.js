@@ -17,8 +17,6 @@ async function checkVoter(req) {
   })
   .catch(e => console.log(e));
 
-  console.log(hasVoted);
-
   if(!hasVoted[0]) return false;
 
   //compare dates since they are stored as
