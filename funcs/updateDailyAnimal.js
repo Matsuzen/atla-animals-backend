@@ -1,7 +1,6 @@
 const db = require("../models/db");
 const { QueryTypes } = require("sequelize");
 
-const Animal = require("../models/Animal");
 const UsedAnimal = require("../models/UsedAnimal");
 
 async function updateDailyAnimal(initial = false) {
@@ -9,27 +8,28 @@ async function updateDailyAnimal(initial = false) {
   let animalQuery;
   let newAnimal;
 
-  if(!initial) {
-    animalQuery = `SELECT animals.* FROM animals
-      LEFT JOIN used_animals AS ua
-        ON animals.id != ua.animal_id
-      ORDER BY RANDOM()
-      LIMIT 1`;
+  //Select an animal that is not in the used_animals table
+  animalQuery = `SELECT animals.* FROM animals
+    LEFT JOIN used_animals AS ua
+      ON animals.id != ua.animal_id
+    ORDER BY RANDOM()
+    LIMIT 1`;
 
+  newAnimal = await db.query(animalQuery, {
+    type: QueryTypes.SELECT
+  });   
+  
+  if(!initial) {
+
+  } 
+  //First animal inserted in the DB
+  /* else {
+    animalQuery = `SELECT animals.* FROM animals ORDER BY RANDOM() LIMIT 1`;
+    
     newAnimal = await db.query(animalQuery, {
       type: QueryTypes.SELECT
-    });   
-
-  } else {
-    const animalRes = await Animal.findOne({ 
-      where: {},
-      order: [
-        db.fn("RANDOM")
-      ],
-      raw: true 
     });
-    newAnimal = await UsedAnimal.create({ animal_id: animalRes.id })
-  }
+  } */
   
   newAnimal = newAnimal[0] || newAnimal.dataValues;
 

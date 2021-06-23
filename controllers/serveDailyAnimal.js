@@ -21,6 +21,7 @@ async function serveDailyAnimal(req, res) {
 
   dailyAnimal = dailyAnimal[0];
 
+  //No animal was previous created, create the first one
   if(!dailyAnimal) {
     dailyAnimal = await updateDailyAnimal(true);
   }
@@ -39,7 +40,6 @@ async function serveDailyAnimal(req, res) {
   //Update animal when dates don't match
   //Change this to cronjob later
   if(animalDateDay != currentDate || animalMonth != currentMonth || animalYear != currentYear) {
-    console.log("DATE CHANGE!!!!!!!!!!!")
     dailyAnimal = await updateDailyAnimal()
     .catch(e => res.send(e));
   } 
