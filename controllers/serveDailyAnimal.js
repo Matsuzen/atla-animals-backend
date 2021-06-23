@@ -21,13 +21,15 @@ async function serveDailyAnimal(req, res) {
 
   dailyAnimal = dailyAnimal[0];
 
-  //No animal was previous created, create the first one
-  if(!dailyAnimal) {
+  //No animal in the database initially, create the first one
+  /* if(!dailyAnimal) {
     dailyAnimal = await updateDailyAnimal(true);
-  }
+  } */
+
+  const createdAt = dailyAnimal && dailyAnimal.created_at; 
 
   //Compare the daily animal's date with the current date
-  const animalDate = new Date(dailyAnimal.created_at);
+  const animalDate = new Date(createdAt);
   const animalYear = animalDate.getFullYear();
   const animalMonth = animalDate.getMonth();
   const animalDateDay = animalDate.getDate();
@@ -43,7 +45,7 @@ async function serveDailyAnimal(req, res) {
     dailyAnimal = await updateDailyAnimal()
     .catch(e => res.send(e));
   } 
-  //Get daily rating for the daily animal
+  //Get daily rating for the daily animal if it'S not a new animal
   else {
     dailyAnimal.tier = await doRating(dailyAnimal.ua_id);
   }
