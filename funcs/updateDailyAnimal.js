@@ -5,16 +5,15 @@ const UsedAnimal = require("../models/UsedAnimal");
 
 async function updateDailyAnimal(initial = false) {
   //Select an animal that is not in the used_animals table
-  const animalQuery = `SELECT animals.* FROM animals
-    LEFT JOIN used_animals AS ua
+  const animalQuery = `SELECT animals.* FROM used_animals AS ua
+    LEFT JOIN animals
       ON animals.id != ua.animal_id
-    WHERE animals.id != ua.animal_id
     ORDER BY RANDOM()
     LIMIT 1`;
 
   let newAnimal = await db.query(animalQuery, {
     type: QueryTypes.SELECT
-  });   
+  }); 
   
   newAnimal = newAnimal[0] || newAnimal.dataValues;
 
