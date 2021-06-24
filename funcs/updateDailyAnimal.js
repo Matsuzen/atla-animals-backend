@@ -16,18 +16,6 @@ async function updateDailyAnimal(initial = false) {
     type: QueryTypes.SELECT
   });   
   
-  if(!initial) {
-
-  } 
-  //First animal inserted in the DB
-  /* else {
-    animalQuery = `SELECT animals.* FROM animals ORDER BY RANDOM() LIMIT 1`;
-    
-    newAnimal = await db.query(animalQuery, {
-      type: QueryTypes.SELECT
-    });
-  } */
-  
   newAnimal = newAnimal[0] || newAnimal.dataValues;
 
   //No animal is available to be selected, delete all records and run function again

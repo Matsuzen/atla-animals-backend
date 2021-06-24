@@ -2,6 +2,7 @@
 
 const fs = require("fs");
 const Animal = require("../models/Animal");
+const UsedAnimal = require("../models/UsedAnimal");
 
 function syncAnimals(dir) {
 
@@ -20,7 +21,7 @@ function syncAnimals(dir) {
     })
     .catch(e => {});
 
-    console.log(`Created animal: ${animalName}`)
+    console.log(`Created animal: ${animalName}`);
   })
   
 }
