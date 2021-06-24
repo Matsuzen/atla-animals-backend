@@ -8,7 +8,7 @@ async function updateDailyAnimal(initial = false) {
   const animalQuery = `SELECT animals.* FROM animals
     WHERE NOT EXISTS (
       SELECT * FROM used_animals AS ua
-        WHERE ua.id = animals.id
+        WHERE ua.animal_id = animals.id
     )
     ORDER BY RANDOM()
     LIMIT 1`;
