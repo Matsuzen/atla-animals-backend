@@ -8,6 +8,7 @@ async function updateDailyAnimal(initial = false) {
   const animalQuery = `SELECT animals.* FROM used_animals AS ua
     LEFT JOIN animals
       ON animals.id != ua.animal_id
+    WHERE animals.id != ua.animal_id
     ORDER BY RANDOM()
     LIMIT 1`;
 
