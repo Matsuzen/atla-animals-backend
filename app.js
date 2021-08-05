@@ -1,3 +1,4 @@
+//An app to display a unique image every day from Avatar the last Airbender and Korra
 require("dotenv").config();
 
 const express = require("express");
